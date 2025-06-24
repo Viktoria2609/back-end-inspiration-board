@@ -1,9 +1,7 @@
 from app.db import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String
+from sqlalchemy import String, ForeignKey
 from typing import Optional
-from sqlalchemy import ForeignKey
-from app.models.board import Board
 
 class Card(db.Model):
     __tablename__ = "cards"
@@ -13,7 +11,7 @@ class Card(db.Model):
     likes_count: Mapped[int] = mapped_column(default=0)
 
     board_id: Mapped[Optional[int]] = mapped_column(ForeignKey("boards.id"))
-    board: Mapped[Optional["Board"]] = relationship(back_populates="cards")
+    board: Mapped[Optional["Board"]] = relationship("Board", back_populates="cards")
 
 
     def to_dict(self):

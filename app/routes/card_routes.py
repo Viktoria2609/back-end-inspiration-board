@@ -1,19 +1,18 @@
 from flask import Blueprint, request, abort, make_response, Response, jsonify
 from app.models.card import Card
 from ..db import db
-from .helper_routes import validate_model, helper_model_from_dict, helper_get_sorted_query
-
+from .helper_routes import validate_model
 bp = Blueprint("cards_bp", __name__, url_prefix="/cards")
 
 @bp.post("")
 def create_card():
     request_body = request.get_json()
-    return helper_model_from_dict(Card, request_body)
+    return validate_model(Card, request_body)
 
 @bp.get("")
 def get_all_cards():
     sort_param = request.args.get("sort")
-    query = helper_get_sorted_query(Card, sort_param)
+    query = validate_model(Card, sort_param)
     cards = db.session.execute(query).scalars()
     card_list = [card.to_dict() for card in cards]
     return card_list

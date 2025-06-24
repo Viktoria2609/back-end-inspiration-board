@@ -3,12 +3,15 @@ from ..db import db
 from .helper_routes import validate_model
 from app.models.board import Board
 from app.models.card import Card
+from .helper_routes import validate_model, validate_board_data, validate_card_data
+
 
 bp = Blueprint("boards_bp", __name__, url_prefix="/boards")
 
 @bp.post("")
 def create_board():
     data = request.get_json()
+    validate_board_data(data)
 
     new_board = Board(
         title=data["title"],
@@ -34,6 +37,7 @@ def get_board(board_id):
 def create_card_for_board(board_id):
     board = validate_model(Board, board_id)
     data = request.get_json()
+    validate_card_data(data)
 
     new_card = Card(
         message=data["message"],

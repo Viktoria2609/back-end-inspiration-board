@@ -12,7 +12,7 @@ class Board(db.Model):
     title: Mapped[str] = mapped_column(String, nullable=False)
     owner: Mapped[str] = mapped_column(String, nullable=False)
 
-    cards: Mapped[List["Card"]] = relationship(back_populates="board", cascade="all, delete")
+    cards: Mapped[List["Card"]] = relationship("Card", back_populates="board", cascade="all, delete")
 
     def to_dict(self):
         return {
