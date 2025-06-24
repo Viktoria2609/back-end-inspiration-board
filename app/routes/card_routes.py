@@ -39,7 +39,7 @@ def like_card(card_id):
     card = validate_model(Card, card_id)
     card.likes_count += 1
     db.session.commit()
-    return {"card": card.to_dict()}
+    return {"card": card.to_dict()}, 200
 
 @bp.delete("/<card_id>")
 def delete_card(card_id):
