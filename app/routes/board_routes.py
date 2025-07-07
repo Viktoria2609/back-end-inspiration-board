@@ -60,3 +60,12 @@ def get_cards_for_board(board_id):
         "owner": board.owner,
         "cards": cards
     }, 200
+
+@bp.delete("/<board_id>")
+def delete_board(board_id):
+    board = validate_model(Board, board_id)
+
+    db.session.delete(board)
+    db.session.commit()
+
+    return "", 204
