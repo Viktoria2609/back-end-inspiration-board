@@ -16,7 +16,7 @@ class Board(db.Model):
 
     def to_dict(self):
         return {
-            "board_id": self.id,
+            "id": self.id,
             "title": self.title,
             "owner": self.owner
         }
@@ -24,5 +24,6 @@ class Board(db.Model):
     @classmethod
     def from_dict(cls, data):
         return cls(
-            title=data["title"]
+            title=data["title"],
+            owner=data["owner"]
         )

@@ -1,6 +1,7 @@
 from app.db import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey
+from app.models.board import Board
 
 class Card(db.Model):
     __tablename__ = "cards"
