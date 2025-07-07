@@ -29,18 +29,3 @@ def validate_card_data(data):
         response = {"details": "Invalid card message. Must be 1–40 characters."}
         abort(make_response(response, 400))
 
-def create_model_from_dict(cls, data):
-    try:
-        new_instance = cls.from_dict(data)
-
-    except KeyError as error:
-        response = { "details": "Invalid data"}
-        abort(make_response(response, 400))
-
-    db.session.add(new_instance)
-    db.session.commit()
-
-    model_name = cls.__name__.lower() 
-    
-    return {model_name: new_instance.to_dict()}, 201
-
